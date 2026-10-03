@@ -1,0 +1,353 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import ProductCard from '../components/ProductCard.astro';
+import { site, orderLink, orderChannel } from '../data/site';
+import { productos, categorias } from '../data/products';
+
+import collarClover from '../assets/joyas/collar-dije-clover.jpg';
+import areteClover from '../assets/joyas/arete-clover.jpg';
+import pulseraHerraje from '../assets/joyas/pulsera-herraje-clover.jpg';
+import areteRedondo from '../assets/joyas/arete-clover-redondo.jpg';
+import modeloClover from '../assets/joyas/modelo-dije-clover.jpg';
+import modeloCaracol from '../assets/joyas/modelo-cadena-caracol.jpg';
+import anillo from '../assets/joyas/anillo-corazones.jpg';
+import topos from '../assets/joyas/topos-circonia-roja.jpg';
+import cadena from '../assets/joyas/cadena-tejido-chino.jpg';
+
+const destacados = productos.filter((p) => p.destacado).slice(0, 8);
+
+const portadaCategoria = {
+  aretes: areteRedondo,
+  collares: collarClover,
+  pulseras: pulseraHerraje,
+  anillos: anillo,
+  cadenas: cadena,
+} as const;
+
+const beneficios = [
+  {
+    titulo: 'Oro laminado 18K',
+    texto: 'Piezas de alta calidad con el tono cálido del oro, pensadas para durar y brillar.',
+    icon: 'M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9L12 3z',
+  },
+  {
+    titulo: 'Envíos a todo el Ecuador',
+    texto: 'Desde los Andes hasta la costa, llevamos tu joya hasta la puerta de tu casa.',
+    icon: 'M3 7h11v9H3zM14 10h4l3 3v3h-7M7 19a2 2 0 100-4 2 2 0 000 4zM17 19a2 2 0 100-4 2 2 0 000 4z',
+  },
+  {
+    titulo: 'Compra 100% segura',
+    texto: 'Te acompañamos en todo el proceso, de la elección al empaque. Compra garantizada.',
+    icon: 'M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6l8-3zM8.5 12l2.5 2.5L15.5 10',
+  },
+  {
+    titulo: 'Por mayor y detal',
+    texto: 'Precios especiales para emprendedoras y tiendas que quieren vender Qori.',
+    icon: 'M4 7h16l-1.5 12h-13L4 7zM9 7V5a3 3 0 016 0v2',
+  },
+];
+
+const preguntas = [
+  {
+    q: '¿Qué es el oro laminado 18K?',
+    a: 'Es una pieza con una base metálica recubierta por capas de oro de 18 quilates. Ofrece el color y el brillo del oro a un precio accesible, ideal para uso diario.',
+  },
+  {
+    q: '¿Cómo hago un pedido?',
+    a: `Escríbenos por ${orderChannel()} con el nombre de la joya que te gustó. Te confirmamos disponibilidad, precio y forma de envío.`,
+  },
+  {
+    q: '¿Hacen envíos fuera de mi ciudad?',
+    a: 'Sí. Enviamos a todas las provincias del Ecuador. Al hacer tu pedido te indicamos el costo y el tiempo de entrega para tu ciudad.',
+  },
+  {
+    q: '¿Venden al por mayor?',
+    a: 'Sí, vendemos al por mayor y al detal. Si tienes una tienda o emprendimiento, escríbenos para conocer los precios por volumen.',
+  },
+  {
+    q: '¿Cómo cuido mis joyas?',
+    a: 'Evita el contacto con perfumes, cremas, cloro y agua de mar. Guárdalas por separado en un lugar seco y límpialas con un paño suave. Así conservan su brillo por más tiempo.',
+  },
+];
+---
+
+<Layout overlayHeader>
+  <!-- HERO -->
+  <section class="relative overflow-hidden bg-ivory pt-[6.25rem]">
+    <span class="qori-mark pointer-events-none absolute -left-40 top-24 w-[42rem] bg-gold/[0.07]" aria-hidden="true"></span>
+    <div class="relative mx-auto grid max-w-7xl items-center gap-12 px-4 pb-16 pt-10 sm:px-8 lg:grid-cols-12 lg:gap-8 lg:pb-24 lg:pt-16">
+      <div class="lg:col-span-6" data-reveal>
+        <p class="eyebrow">Joyería con alma ecuatoriana</p>
+        <h1 class="mt-6 font-display text-[3.2rem] font-light leading-[0.95] tracking-tight sm:text-7xl xl:text-[5.6rem]">
+          El brillo del <em class="gold-text font-normal">oro</em>,<br />
+          con raíces en los <span class="italic">Andes</span>
+        </h1>
+        <p class="mt-8 max-w-md text-lg leading-relaxed text-stone">
+          Qori significa oro en quechua. Fusionamos la herencia ancestral con la sofisticación moderna en joyas de oro laminado 18K.
+        </p>
+        <div class="mt-10 flex flex-wrap items-center gap-4">
+          <a href="/coleccion" class="btn-dark">
+            Ver la colección
+            <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+          </a>
+          <a href={orderLink()} target="_blank" rel="noopener" class="btn-line">Pedir por {orderChannel()}</a>
+        </div>
+        <dl class="mt-14 grid max-w-md grid-cols-3 gap-6 border-t border-ink/10 pt-8">
+          <div><dt class="text-[0.62rem] uppercase tracking-[0.25em] text-stone">Material</dt><dd class="mt-1 font-display text-2xl">18K</dd></div>
+          <div><dt class="text-[0.62rem] uppercase tracking-[0.25em] text-stone">Envíos</dt><dd class="mt-1 font-display text-2xl">Todo EC</dd></div>
+          <div><dt class="text-[0.62rem] uppercase tracking-[0.25em] text-stone">Venta</dt><dd class="mt-1 font-display text-2xl">Mayor y detal</dd></div>
+        </dl>
+      </div>
+
+      <div class="relative lg:col-span-6" data-reveal style="--d:150ms">
+        <div class="relative mx-auto w-full max-w-md">
+          <div class="overflow-hidden rounded-t-full border border-gold/40 p-3">
+            <div class="overflow-hidden rounded-t-full">
+              <Image
+                src={collarClover}
+                alt="Collar con dije Clover de circonias en oro laminado 18K"
+                widths={[400, 512]}
+                sizes="(min-width: 1024px) 28rem, 90vw"
+                loading="eager"
+                fetchpriority="high"
+                class="aspect-[4/5] w-full object-cover"
+              />
+            </div>
+          </div>
+          <div class="absolute -bottom-8 left-0 w-36 overflow-hidden rounded-full border-4 border-ivory shadow-2xl shadow-ink/15 sm:-left-14 sm:w-44">
+            <Image src={areteClover} alt="Aretes Clover de circonias" width={256} class="aspect-square w-full object-cover" />
+          </div>
+          <div class="absolute -right-2 top-10 hidden rotate-3 bg-ink px-5 py-4 text-ivory shadow-xl sm:-right-10 sm:block">
+            <p class="text-[0.6rem] uppercase tracking-[0.3em] text-gold-light">Colección</p>
+            <p class="font-brand text-lg tracking-[0.2em]">Clover</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUESINA -->
+  <div class="overflow-hidden border-y border-gold/30 bg-ink py-5 text-gold-light" aria-hidden="true">
+    <div class="flex w-max animate-marquee">
+      {
+        [0, 1].map(() => (
+          <div class="flex shrink-0 items-center">
+            {[...site.promesas, site.hashtag].map((t) => (
+              <span class="flex items-center gap-10 px-5 font-display text-xl italic sm:text-2xl">
+                {t}
+                <span class="qori-mark block h-3 bg-gold" />
+              </span>
+            ))}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- CATEGORÍAS -->
+  <section class="mx-auto max-w-7xl px-4 py-24 sm:px-8 lg:py-32">
+    <div class="flex flex-col justify-between gap-6 sm:flex-row sm:items-end" data-reveal>
+      <div>
+        <p class="eyebrow">Explora</p>
+        <h2 class="mt-4 font-display text-5xl font-light sm:text-6xl">Encuentra tu pieza</h2>
+      </div>
+      <a href="/coleccion" class="link-underline self-start text-[0.72rem] uppercase tracking-[0.25em] sm:self-auto">Ver todo</a>
+    </div>
+    <div class="mt-14 grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-5">
+      {
+        categorias.map((c, i) => (
+          <a
+            href={`/coleccion?c=${c.id}`}
+            class:list={['group relative overflow-hidden bg-sand', i === 0 && 'col-span-2 lg:col-span-1']}
+            data-reveal
+            style={`--d:${i * 80}ms`}
+          >
+            <Image
+              src={portadaCategoria[c.id]}
+              alt=""
+              widths={[320, 512]}
+              sizes="(min-width: 1024px) 20vw, 50vw"
+              class:list={['w-full object-cover transition-transform duration-[1.4s] ease-lux group-hover:scale-105', i === 0 ? 'aspect-[16/10] lg:aspect-[3/4]' : 'aspect-[3/4]']}
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/0 to-transparent" />
+            <div class="absolute inset-x-0 bottom-0 p-4 text-ivory sm:p-5">
+              <h3 class="font-display text-2xl sm:text-3xl">{c.nombre}</h3>
+              <p class="mt-1 hidden text-xs text-ivory/80 sm:block">{c.descripcion}</p>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- HISTORIA -->
+  <section id="historia" class="relative scroll-mt-28 overflow-hidden bg-ink text-ivory">
+    <div class="mx-auto grid max-w-7xl items-center gap-16 px-4 py-24 sm:px-8 lg:grid-cols-2 lg:py-32">
+      <div class="relative order-2 lg:order-1" data-reveal>
+        <div class="grid grid-cols-2 gap-4">
+          <Image src={modeloCaracol} alt="Modelo luciendo la cadena caracol con dije de la Virgen Milagrosa" widths={[300, 361]} sizes="(min-width:1024px) 22vw, 45vw" class="aspect-[3/5] w-full object-cover" />
+          <div class="flex flex-col gap-4 pt-16">
+            <Image src={topos} alt="Topos de circonia roja en oro laminado" widths={[300, 512]} sizes="(min-width:1024px) 22vw, 45vw" class="aspect-square w-full object-cover" />
+            <div class="flex aspect-square flex-col items-center justify-center border border-gold/30 p-6 text-center">
+              <span class="qori-mark block w-20 bg-gold"></span>
+              <p class="mt-4 font-brand text-sm tracking-[0.4em] text-gold-light">QORI</p>
+              <p class="mt-1 text-[0.6rem] uppercase tracking-[0.3em] text-ivory/50">oro · quechua</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="order-1 lg:order-2" data-reveal style="--d:120ms">
+        <p class="eyebrow text-gold">Nuestra historia</p>
+        <h2 class="mt-5 font-display text-5xl font-light leading-[1.05] sm:text-6xl">
+          Un homenaje a Ecuador <em class="gold-text">en cada detalle</em>
+        </h2>
+        <div class="mt-8 space-y-5 text-lg leading-relaxed text-ivory/70">
+          <p>
+            <strong class="font-normal text-ivory">Qori</strong> significa oro en quechua: un símbolo de luz, riqueza y tradición. Nos inspira el arte y la cultura ecuatoriana, y en cada pieza fusionamos la herencia ancestral con la sofisticación moderna.
+          </p>
+          <p>Desde los Andes hasta la costa, cada joya representa la belleza y la historia de nuestro país. Nuestro emblema, un tejido geométrico de inspiración andina, recuerda que el brillo verdadero tiene raíces.</p>
+        </div>
+        <ul class="mt-10 grid gap-4 sm:grid-cols-2">
+          {['Diseños exclusivos inspirados en la cultura ecuatoriana', 'Oro laminado 18K de alta calidad'].map((t) => (
+            <li class="flex gap-3 border-t border-ivory/15 pt-4 text-sm text-ivory/80">
+              <span class="mt-1.5 size-1.5 shrink-0 rotate-45 bg-gold"></span>{t}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- DESTACADOS -->
+  <section class="mx-auto max-w-7xl px-4 py-24 sm:px-8 lg:py-32">
+    <div class="text-center" data-reveal>
+      <p class="eyebrow">Los favoritos</p>
+      <h2 class="mt-4 font-display text-5xl font-light sm:text-6xl">Piezas que enamoran</h2>
+      <p class="mx-auto mt-5 max-w-lg text-stone">Para quienes saben que el detalle lo es todo. Combínalas para un look impecable y lleno de personalidad.</p>
+    </div>
+    <div class="mt-16 grid grid-cols-2 gap-x-4 gap-y-12 sm:gap-x-6 lg:grid-cols-4">
+      {destacados.map((p, i) => <ProductCard producto={p} delay={(i % 4) * 90} />)}
+    </div>
+    <div class="mt-16 text-center">
+      <a href="/coleccion" class="btn-line">Ver toda la colección</a>
+    </div>
+  </section>
+
+  <!-- CLOVER -->
+  <section id="clover" class="scroll-mt-28 bg-sand">
+    <div class="mx-auto grid max-w-7xl gap-12 px-4 py-24 sm:px-8 lg:grid-cols-12 lg:items-center lg:py-32">
+      <div class="lg:col-span-5" data-reveal>
+        <p class="eyebrow">Colección insignia</p>
+        <h2 class="mt-5 font-brand text-5xl tracking-[0.12em] sm:text-6xl">Clover</h2>
+        <p class="mt-6 font-display text-2xl italic leading-snug text-ink/80">Detalles que marcan la diferencia.</p>
+        <p class="mt-6 max-w-md leading-relaxed text-stone">
+          El trébol de cuatro hojas en oro laminado 18K y circonias brillantes. Elegante, versátil y lleno de significado: en dije, aretes y pulseras, y el dije disponible en dos tamaños.
+        </p>
+        <a href="/coleccion?col=Clover" class="btn-dark mt-10">Descubrir Clover</a>
+      </div>
+      <div class="grid grid-cols-6 grid-rows-6 gap-3 sm:gap-4 lg:col-span-7" style="aspect-ratio: 1 / 1.05">
+        <div class="col-span-3 row-span-6 overflow-hidden" data-reveal>
+          <Image src={modeloClover} alt="Modelo con el collar Dije Clover" widths={[361]} sizes="(min-width:1024px) 28vw, 50vw" class="size-full object-cover" />
+        </div>
+        <div class="col-span-3 row-span-3 overflow-hidden" data-reveal style="--d:120ms">
+          <Image src={areteRedondo} alt="Aretes Clover redondos con circonias" widths={[320, 512]} sizes="(min-width:1024px) 28vw, 50vw" class="size-full object-cover" />
+        </div>
+        <div class="col-span-3 row-span-3 overflow-hidden" data-reveal style="--d:220ms">
+          <Image src={pulseraHerraje} alt="Pulsera con herraje Clover sobre hilo rojo" widths={[320, 512]} sizes="(min-width:1024px) 28vw, 50vw" class="size-full object-cover" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFICIOS -->
+  <section class="mx-auto max-w-7xl px-4 py-24 sm:px-8">
+    <div class="grid gap-px overflow-hidden border border-ink/10 bg-ink/10 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        beneficios.map((b, i) => (
+          <div class="bg-ivory p-8 lg:p-10" data-reveal style={`--d:${i * 90}ms`}>
+            <svg class="size-8 text-gold-deep" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
+              <path d={b.icon} />
+            </svg>
+            <h3 class="mt-6 font-display text-2xl">{b.titulo}</h3>
+            <p class="mt-3 text-sm leading-relaxed text-stone">{b.texto}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- MAYORISTAS -->
+  <section id="mayoristas" class="scroll-mt-28 px-4 pb-24 sm:px-8">
+    <div class="relative mx-auto max-w-7xl overflow-hidden bg-ink px-6 py-16 text-center text-ivory sm:px-16 lg:py-24" data-reveal>
+      <span class="qori-mark pointer-events-none absolute left-1/2 top-1/2 w-[46rem] -translate-x-1/2 -translate-y-1/2 bg-gold/[0.06]" aria-hidden="true"></span>
+      <div class="relative">
+        <p class="eyebrow text-gold">Ventas al por mayor y detal</p>
+        <h2 class="mx-auto mt-5 max-w-2xl font-display text-4xl font-light leading-tight sm:text-6xl">
+          ¿Tienes una tienda o emprendimiento? <em class="gold-text">Vende Qori.</em>
+        </h2>
+        <p class="mx-auto mt-6 max-w-lg text-ivory/70">Accede a precios por volumen y lleva a tus clientas joyas de oro laminado 18K con diseño ecuatoriano.</p>
+        <a
+          href={orderLink('Hola Qori, me interesa comprar al por mayor. ¿Me pueden enviar información?')}
+          target="_blank"
+          rel="noopener"
+          class="btn-gold mt-10"
+        >
+          Quiero información
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSTAGRAM -->
+  <section class="bg-sand py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-8">
+      <div class="flex flex-col items-center text-center" data-reveal>
+        <p class="eyebrow">Síguenos</p>
+        <h2 class="mt-4 font-display text-5xl font-light">{site.hashtag}</h2>
+        <a href={site.instagram} target="_blank" rel="noopener" class="link-underline mt-4 text-stone">@{site.instagramUser}</a>
+      </div>
+      <div class="mt-12 grid grid-cols-3 gap-2 sm:gap-3 lg:grid-cols-6">
+        {
+          [collarClover, topos, anillo, areteClover, cadena, pulseraHerraje].map((img, i) => (
+            <a href={site.instagram} target="_blank" rel="noopener" class="group relative block overflow-hidden" data-reveal style={`--d:${i * 60}ms`}>
+              <Image src={img} alt="Publicación de Qori Joyería en Instagram" widths={[240, 400]} sizes="(min-width:1024px) 16vw, 33vw" class="aspect-square w-full object-cover transition-transform duration-1000 ease-lux group-hover:scale-110" />
+              <span class="absolute inset-0 grid place-items-center bg-ink/0 text-ivory opacity-0 transition-all duration-500 group-hover:bg-ink/40 group-hover:opacity-100">
+                <svg class="size-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+                  <rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" />
+                </svg>
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- PREGUNTAS -->
+  <section id="preguntas" class="mx-auto grid max-w-7xl scroll-mt-28 gap-12 px-4 py-24 sm:px-8 lg:grid-cols-12 lg:py-32">
+    <div class="lg:col-span-4" data-reveal>
+      <p class="eyebrow">Preguntas frecuentes</p>
+      <h2 class="mt-4 font-display text-5xl font-light">Todo lo que necesitas saber</h2>
+      <p class="mt-6 text-stone">¿Tienes otra duda? Escríbenos, respondemos con gusto.</p>
+      <a href={orderLink()} target="_blank" rel="noopener" class="btn-line mt-8">Contáctanos</a>
+    </div>
+    <div class="divide-y divide-ink/10 border-y border-ink/10 lg:col-span-8">
+      {
+        preguntas.map((p, i) => (
+          <details class="group py-2" open={i === 0}>
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-6 py-5 font-display text-2xl [&::-webkit-details-marker]:hidden">
+              {p.q}
+              <span class="relative size-4 shrink-0">
+                <span class="absolute inset-x-0 top-1/2 h-px bg-ink" />
+                <span class="absolute inset-y-0 left-1/2 w-px bg-ink transition-transform duration-500 ease-lux group-open:rotate-90 group-open:scale-y-0" />
+              </span>
+            </summary>
+            <p class="max-w-2xl pb-6 leading-relaxed text-stone">{p.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,40 @@
+---
+import { Image } from 'astro:assets';
+import type { Producto } from '../data/products';
+import { getCategoria } from '../data/products';
+
+interface Props {
+  producto: Producto;
+  delay?: number;
+}
+const { producto, delay = 0 } = Astro.props;
+---
+
+<article class="group" data-reveal style={`--d:${delay}ms`} data-categoria={producto.categoria}>
+  <a href={`/joya/${producto.slug}`} class="block">
+    <div class="relative aspect-[4/5] overflow-hidden bg-sand">
+      <Image
+        src={producto.imagen}
+        alt={producto.nombre}
+        widths={[320, 512]}
+        sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+        class="size-full object-cover transition-transform duration-[1.4s] ease-lux group-hover:scale-105"
+      />
+      {
+        producto.coleccion && (
+          <span class="absolute left-3 top-3 bg-ivory/90 px-2.5 py-1 text-[0.6rem] uppercase tracking-[0.25em] backdrop-blur">
+            {producto.coleccion}
+          </span>
+        )
+      }
+      <span class="absolute inset-x-3 bottom-3 translate-y-2 bg-ink/90 py-3 text-center text-[0.65rem] uppercase tracking-[0.25em] text-ivory opacity-0 transition-all duration-500 ease-lux group-hover:translate-y-0 group-hover:opacity-100">
+        Ver detalle
+      </span>
+    </div>
+    <div class="mt-4 space-y-1">
+      <p class="text-[0.65rem] uppercase tracking-[0.25em] text-stone">{getCategoria(producto.categoria).nombre}</p>
+      <h3 class="font-display text-xl leading-snug transition-colors group-hover:text-gold-deep">{producto.nombre}</h3>
+      <p class="text-sm text-stone">Oro laminado 18K</p>
+    </div>
+  </a>
+</article>

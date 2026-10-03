@@ -1,0 +1,52 @@
+---
+import { site, orderLink } from '../data/site';
+import { categorias } from '../data/products';
+const year = new Date().getFullYear();
+---
+
+<footer class="relative overflow-hidden bg-ink text-ivory/70">
+  <span class="qori-mark pointer-events-none absolute -right-24 -bottom-20 w-[28rem] bg-gold/[0.06]" aria-hidden="true"></span>
+  <div class="relative mx-auto max-w-7xl px-4 pb-10 pt-20 sm:px-8">
+    <div class="grid gap-14 md:grid-cols-12">
+      <div class="md:col-span-5">
+        <a href="/" class="inline-flex items-center gap-4">
+          <span class="qori-mark block h-10 bg-gold"></span>
+          <span class="font-brand text-2xl tracking-[0.35em] text-gold-light">QORI</span>
+        </a>
+        <p class="mt-6 max-w-sm font-display text-xl italic leading-relaxed text-ivory/80">
+          “Qori” significa oro en quechua: un símbolo de luz, riqueza y tradición.
+        </p>
+        <a href={site.instagram} target="_blank" rel="noopener" class="mt-8 inline-flex items-center gap-3 text-sm text-gold-light hover:text-gold">
+          <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" />
+          </svg>
+          @{site.instagramUser}
+        </a>
+      </div>
+
+      <div class="md:col-span-3">
+        <h2 class="eyebrow text-gold">Colección</h2>
+        <ul class="mt-6 space-y-3 text-sm">
+          {categorias.map((c) => (
+            <li><a class="hover:text-ivory" href={`/coleccion?c=${c.id}`}>{c.nombre}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="md:col-span-4">
+        <h2 class="eyebrow text-gold">Compra con confianza</h2>
+        <ul class="mt-6 space-y-3 text-sm">
+          {site.promesas.map((p) => (
+            <li class="flex gap-3"><span class="mt-2 size-1 shrink-0 rotate-45 bg-gold"></span>{p}</li>
+          ))}
+        </ul>
+        <a href={orderLink()} target="_blank" rel="noopener" class="btn-gold mt-8">Escríbenos</a>
+      </div>
+    </div>
+
+    <div class="mt-20 flex flex-col gap-4 border-t border-ivory/10 pt-8 text-xs tracking-wide sm:flex-row sm:items-center sm:justify-between">
+      <p>© {year} Qori Joyería · Hecho con orgullo en Ecuador 🇪🇨</p>
+      <p class="uppercase tracking-[0.3em] text-gold/80">{site.hashtag}</p>
+    </div>
+  </div>
+</footer>

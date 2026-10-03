@@ -1,0 +1,88 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Cormorant Garamond", ui-serif, Georgia, serif;
+  --font-brand: "Cinzel", ui-serif, Georgia, serif;
+  --font-sans: "Jost", ui-sans-serif, system-ui, sans-serif;
+
+  --color-ink: #0f0e0c;
+  --color-ink-soft: #1c1a16;
+  --color-ivory: #f8f5ef;
+  --color-sand: #efe8dc;
+  --color-stone: #7d7468;
+  --color-gold: #c9a45c;
+  --color-gold-light: #e6cf98;
+  --color-gold-deep: #8f6c2c;
+
+  --ease-lux: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-marquee: marquee 40s linear infinite;
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    @apply bg-ivory text-ink font-sans font-light;
+  }
+  ::selection {
+    @apply bg-gold/30;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-4 outline-gold;
+  }
+}
+
+@utility eyebrow {
+  @apply font-sans text-[0.7rem] font-medium uppercase tracking-[0.32em] text-gold-deep;
+}
+@utility gold-text {
+  background: linear-gradient(100deg, #8f6c2c 0%, #e6cf98 45%, #c9a45c 60%, #8f6c2c 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@utility btn {
+  @apply inline-flex items-center justify-center gap-3 px-7 py-3.5 text-[0.72rem] font-medium uppercase tracking-[0.25em] transition-all duration-500 ease-lux;
+}
+@utility btn-dark {
+  @apply btn bg-ink text-ivory hover:bg-gold-deep;
+}
+@utility btn-gold {
+  @apply btn bg-gold text-ink hover:bg-gold-light;
+}
+@utility btn-line {
+  @apply btn border border-current hover:border-ink hover:bg-ink hover:text-ivory;
+}
+@utility link-underline {
+  @apply relative after:absolute after:-bottom-1 after:left-0 after:h-px after:w-full after:origin-right after:scale-x-0 after:bg-current after:transition-transform after:duration-500 after:ease-lux hover:after:origin-left hover:after:scale-x-100;
+}
+/* Emblema de Qori como máscara: toma el color de `background-color`. */
+@utility qori-mark {
+  -webkit-mask: url(/logo-mark.png) center / contain no-repeat;
+  mask: url(/logo-mark.png) center / contain no-repeat;
+  aspect-ratio: 848 / 588;
+}
+
+/* Aparición suave al hacer scroll (solo si hay JS) */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 1s var(--ease-lux), transform 1s var(--ease-lux);
+  transition-delay: var(--d, 0ms);
+}
+.js [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal] { opacity: 1; transform: none; transition: none; }
+  .animate-marquee { animation: none; }
+  html { scroll-behavior: auto; }
+}
